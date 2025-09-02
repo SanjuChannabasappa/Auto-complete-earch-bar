@@ -17,8 +17,10 @@ const Inputbar = ({
     if (e.key === "ArrowDown") {
       if (scrollindex == null) {
         setScrollIndex(0);
+        setInput(results[0].name);
       } else if (scrollindex === results.length - 1) {
         setScrollIndex(0);
+        setInput(results[0].name);
       } else {
         setScrollIndex((prev) => prev + 1);
       }
@@ -26,6 +28,7 @@ const Inputbar = ({
     if (e.key === "ArrowUp") {
       if (scrollindex == null) {
         setScrollIndex(0);
+        setInput(results[0].name);
       } else if (scrollindex === 0) {
         setScrollIndex(results.length - 1);
       } else {
@@ -33,8 +36,6 @@ const Inputbar = ({
       }
     }
   };
-
-  console.log(scrollindex);
 
   return (
     <div>
