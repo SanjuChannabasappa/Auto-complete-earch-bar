@@ -9,13 +9,19 @@ export default function App() {
   const [input, setInput] = useState("");
 
   const fetchdata = async () => {
+    console.log(input);
     const data = await fetch("https://dummyjson.com/recipes/search?q=" + input);
     const res = await data.json();
     setResults(res?.recipes);
   };
 
   useEffect(() => {
-    fetchdata();
+    const timeout = setTimeout(() => {
+      fetchdata();
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [input]);
 
   return (
