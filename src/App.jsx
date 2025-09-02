@@ -8,15 +8,15 @@ export default function App() {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState("");
   const [cache, setCache] = useState({});
+  const [blur, setBlur] = useState(true);
+  const [scrollindex, setScrollIndex] = useState(null);
 
   const fetchdata = async () => {
     if (cache[input]) {
-      console.log("from cache");
       setResults(cache[input]);
       return;
     }
 
-    console.log("from API");
     const data = await fetch("https://dummyjson.com/recipes/search?q=" + input);
     const res = await data.json();
     setResults(res?.recipes);
@@ -34,8 +34,18 @@ export default function App() {
 
   return (
     <div className="App">
-      <Inputbar input={input} setInput={setInput}></Inputbar>
-      <Resultscontainer results={results} />
+      <Inputbar
+        input={input}
+        setInput={setInput}
+        blur={blur}
+        setBlur={setBlur}
+        results={results}
+        scrollindex={scrollindex}
+        setScrollIndex={setScrollIndex}
+      ></Inputbar>
+      {!blur && (
+        <Resultscontainer results={results} scrollindex={scrollindex} />
+      )}
     </div>
   );
 }
